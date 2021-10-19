@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="vue,echarts,hexo,hammer,">
+  <meta name="keywords" content="vue,hexo,echarts,hammer,">
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="手机端地图缩放和饿了么 tab 切换组件左右滑动切换会相互影响，因此引入 hammer.js 做手势控制12345678910111213141516171819// 控制手势滑动切换距离bindEvents() &amp;#123;  let that = this;  let hammerTest = new Hammer(document.querySelector(&amp;quot;body&amp;quot">
-<meta name="keywords" content="vue,echarts,hexo,hammer">
+<meta name="keywords" content="vue,hexo,echarts,hammer">
 <meta property="og:type" content="article">
 <meta property="og:title" content="项目总结">
 <meta property="og:url" content="http://ncumovi.com/2021/10/15/project-hole/index.html">
 <meta property="og:site_name" content="Movi Blog">
 <meta property="og:description" content="手机端地图缩放和饿了么 tab 切换组件左右滑动切换会相互影响，因此引入 hammer.js 做手势控制12345678910111213141516171819// 控制手势滑动切换距离bindEvents() &amp;#123;  let that = this;  let hammerTest = new Hammer(document.querySelector(&amp;quot;body&amp;quot">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-10-18T08:28:19.694Z">
+<meta property="og:updated_time" content="2021-10-19T00:55:51.886Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="项目总结">
 <meta name="twitter:description" content="手机端地图缩放和饿了么 tab 切换组件左右滑动切换会相互影响，因此引入 hammer.js 做手势控制12345678910111213141516171819// 控制手势滑动切换距离bindEvents() &amp;#123;  let that = this;  let hammerTest = new Hammer(document.querySelector(&amp;quot;body&amp;quot">
@@ -367,7 +367,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,453 字
+                  2,521 字
                 </span>
               
 
@@ -439,7 +439,9 @@ hexo deploy #将.deploy目录部署到GitHub
 hexo help # 查看帮助
 
 hexo version #查看Hexo的版本
-</code></pre><h2 id="vue-隔代传递数据"><a href="#vue-隔代传递数据" class="headerlink" title="vue 隔代传递数据"></a>vue 隔代传递数据</h2><p>当祖先组件使用 provide 提供数据源，子孙组件通 inject 获取数据，但是获取到的数据不是响应式的，也就是说当祖先组件数据源变更的时候，子孙组件获取到的数据不会变化，还是之前的值，为了实现动态响应，可参考 react 传递函数的思路，向子孙组件提供方法而不是直接提供数据，子组件通过 coputed 属性获取数据，还可以用 watch 属性观测,授之于鱼不如授之于渔，具体代码实现如下：</p>
+</code></pre><p>3、hexo 本地图片无法显示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//是因为路径写的是相对路径，要改成绝对路径，之前是这样的</span><br><span class="line">![校验数据类型](/img/front-engineer/typeOf.png)</span><br><span class="line">要改成绝对路径</span><br><span class="line">![校验数据类型](img/front-engineer/typeOf.png)</span><br></pre></td></tr></table></figure>
+<h2 id="vue-隔代传递数据"><a href="#vue-隔代传递数据" class="headerlink" title="vue 隔代传递数据"></a>vue 隔代传递数据</h2><p>当祖先组件使用 provide 提供数据源，子孙组件通 inject 获取数据，但是获取到的数据不是响应式的，也就是说当祖先组件数据源变更的时候，子孙组件获取到的数据不会变化，还是之前的值，为了实现动态响应，可参考 react 传递函数的思路，向子孙组件提供方法而不是直接提供数据，子组件通过 coputed 属性获取数据，还可以用 watch 属性观测,授之于鱼不如授之于渔，具体代码实现如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//父组件</span><br><span class="line">provide() &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    getNodeData: () =&gt; this.nodeData,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">//子孙组件</span><br><span class="line">inject:[&apos;getNodeData&apos;],</span><br><span class="line">computed:&#123;</span><br><span class="line">  nodeData()&#123;</span><br><span class="line">    return this.getNodeData();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br><span class="line">watch:&#123;</span><br><span class="line">  nodeData(v)&#123;</span><br><span class="line">    //操作</span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
@@ -489,9 +491,9 @@ hexo version #查看Hexo的版本
           
             <a href="/tags/vue/" rel="tag"># vue</a>
           
-            <a href="/tags/echarts/" rel="tag"># echarts</a>
-          
             <a href="/tags/hexo/" rel="tag"># hexo</a>
+          
+            <a href="/tags/echarts/" rel="tag"># echarts</a>
           
             <a href="/tags/hammer/" rel="tag"># hammer</a>
           
@@ -516,7 +518,7 @@ hexo version #查看Hexo的版本
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/10/15/front-engineer/" rel="prev" title="前端知识查缺补漏">
+              <a href="/2021/10/18/front-engineer/" rel="prev" title="前端知识查缺补漏">
                 前端知识查缺补漏 <i class="fa fa-chevron-right"></i>
               </a>
             
